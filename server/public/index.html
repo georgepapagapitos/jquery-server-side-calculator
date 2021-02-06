@@ -10,20 +10,48 @@
     <script src="./scripts/client.js"></script>
   </head>
   <body>
-    <h1>Server Side Calculator</h1>
+    <div id="header">
+      <h1>Server Side Calculator</h1>
+    </div>
+    <div class="container">
+      <form id="input-form">
+        <input type="number" id="first-number" />
 
-    <form id="input-form">
-      <input type="number" id="first-number" />
-      <button id="add-button" data-operator="add">+</button>
-      <button id="subtract-button" data-operator="subtract">—</button>
-      <button id="multiply-button" data-operator="multiply">*</button>
-      <button id="divide-button" data-operator="divide">/</button>
-      <input type="number" id="second-number" />
-      <input type="submit" value="=" id="submit-button" />
-      <input type="button" value="C" id="clear-button" />
-    </form>
+        <button class="operation-button" id="add-button" data-operation="add">
+          +
+        </button>
+        <button
+          class="operation-button"
+          id="subtract-button"
+          data-operation="subtract"
+        >
+          -
+        </button>
+        <button
+          class="operation-button"
+          id="multiply-button"
+          data-operation="multiply"
+        >
+          *
+        </button>
+        <button
+          class="operation-button"
+          id="divide-button"
+          data-operation="divide"
+        >
+          /
+        </button>
 
-    <h2 id="solution"></h2>
-    <ul id="historyList"></ul>
+        <input type="number" id="second-number" />
+        <input type="submit" value="=" id="submit-button" />
+        <input type="button" value="C" id="clear-button" />
+      </form>
+    </div>
+    <div class="container">
+      <h2 id="solution"></h2>
+    </div>
+    <div class="container">
+      <ul id="historyList"></ul>
+    </div>
   </body>
 </html>
