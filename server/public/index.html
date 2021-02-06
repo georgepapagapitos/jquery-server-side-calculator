@@ -5,18 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>jQuery Server-side Calculator</title>
+    <link rel="stylesheet" href="./style/style.css" />
+    <script src="./scripts/jquery.js"></script>
+    <script src="./scripts/client.js"></script>
   </head>
   <body>
     <h1>Server Side Calculator</h1>
-    <form>
+
+    <form id="input-form">
       <input type="number" id="first-number" />
-      <input type="button" value="+" id="add-button" />
-      <input type="button" value="-" id="minus-button" />
-      <input type="button" value="*" id="multiply button" />
-      <input type="button" value="/" id="divide-buton" />
+      <button id="add-button" data-operator="add">+</button>
+      <button id="subtract-button" data-operator="subtract">—</button>
+      <button id="multiply-button" data-operator="multiply">*</button>
+      <button id="divide-button" data-operator="divide">/</button>
       <input type="number" id="second-number" />
       <input type="submit" value="=" id="submit-button" />
       <input type="button" value="C" id="clear-button" />
     </form>
+
+    <h2 id="solution"></h2>
+    <ul id="historyList"></ul>
   </body>
 </html>
