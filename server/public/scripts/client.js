@@ -1,79 +1,71 @@
 $(document).ready(onReady);
 
 let operator = '';
+let calculationToSolve = {};
 
 function onReady() {
-  getCalcHistory();
+  renderMath();
   $(document).on('submit', '#input-form', onSubmit);
   $(document).on('click', '.operation-button', getOperation);
 }
-
+// Function that determines the type of operation based on the button clicked
 function getOperation(event) {
   event.preventDefault();
+  // Sets the operator to whichever button is last pressed
   operator = $(this).data('operation');
   console.log('operator', operator);
   return operator;
 }
 
-function getCalculationToSolve() {
+// Function that creates an calculation object
+function onSubmit(event) {
+  event.preventDefault();
+  // Grab data from form inputs
   let firstNumber = $('#first-number').val();
   let secondNumber = $('#second-number').val();
-
+  // If no number is inputted, default to zero
   if (firstNumber === '') {
     firstNumber = 0;
   }
   if (secondNumber === '') {
     secondNumber = 0;
   }
-
+  // Create an object with the data from the input form
   calculationToSolve = {
     firstNumber: firstNumber,
-    secondNumber: secondNumber,
     operation: operator,
+    secondNumber: secondNumber,
+    solution: '',
   };
 
-  console.log('newCalculation', calculationToSolve);
-  return calculationToSolve;
-}
-
-function getCalcHistory() {
   $.ajax({
-    method: 'GET',
-    url: '/calculator',
-  })
-    .then(function (response) {
-      $('#historyList').empty();
-      $('#solution').text(response[0].solution);
-      for (let calculation of response) {
-        $('#historyList').append(
-          `<li>${calculation.firstNumber} ${calculation.operation} ${calculation.secondNumber} = ${calculation.solution}</li>`
-        );
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
-
-function onSubmit(event) {
-  event.preventDefault();
-  getCalculationToSolve();
-
-  $.ajax({
-    url: '/calculator',
+    url: '/calculate',
     method: 'POST',
-    data: { calculation_to_solve: calculationToSolve },
+    data: calculationToSolve,
   })
     .then(function (response) {
       console.log('in POST response', response);
-      // calculate solution
-      // append solution
-      getCalcHistory();
-      $('#first-number').val('');
-      $('#second-number').val('');
-      operator = '';
+      renderMath();
     })
     .catch(function (error) {
       console.log('error', error);
     });
+}
+
+function renderMath() {
+  $.ajax({
+    url: '/calculate',
+    method: 'GET',
+  }).then(function (response) {
+    $('#history-list').empty();
+    for (let i = 0; i < response.length; i++) {
+      $('#history-list').append(
+        `<li>${response[i].firstNumber} ${response[i].operation} ${response[i].secondNumber} = ${response[i].solution}</li>`
+      );
+      $('#solution').text(response[0].solution);
+    }
+    $('#first-number').val('');
+    $('#second-number').val('');
+    operator = '';
+  });
 }

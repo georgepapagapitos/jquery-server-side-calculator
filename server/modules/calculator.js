@@ -1,28 +1,29 @@
 let calculationHistory = [];
 
-function calculate(calculationToSolve) {
-  let solution = 0;
-  let num1 = Number(calculationToSolve.firstNumber);
-  let num2 = Number(calculationToSolve.secondNumber);
-  switch (calculationToSolve.operation) {
+function calculate(equationObject) {
+  let num1 = Number(equationObject.firstNumber);
+  let operation = equationObject.operation;
+  let num2 = Number(equationObject.secondNumber);
+  switch (operation) {
     case '+':
-      solution = num1 + num2;
+      equationObject.solution = num1 + num2;
       break;
     case '-':
-      solution = num1 - num2;
+      equationObject.solution = num1 - num2;
       break;
     case '*':
-      solution = num1 * num2;
+      equationObject.solution = num1 * num2;
       break;
     case '/':
-      solution = num1 / num2;
+      equationObject.solution = num1 / num2;
       break;
     default:
       throw new Error('select an operation');
   }
-  calculationToSolve.solution = solution;
-  calculationHistory.unshift(calculationToSolve);
-  return solution;
+  calculationHistory.unshift(equationObject);
+  console.log('equation object', equationObject);
+  console.log('calc history array', calculationHistory);
+  return equationObject;
 }
 
 module.exports = { calculationHistory, calculate };

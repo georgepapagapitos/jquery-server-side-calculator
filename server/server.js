@@ -9,17 +9,16 @@ app.use(express.static('server/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/calculator', function (req, res) {
-  console.log('in GET request');
-  res.send(calculator.calculationHistory);
+
+app.post('/calculate', function (req, res) {
+  console.log('req.body', req.body);
+  calculator.calculate(req.body);
+  res.sendStatus(200);
 });
 
-app.post('/calculator', function (req, res) {
-  let newCalculation = req.body.calculation_to_solve;
-  console.log('req.body.calculation_to_solve', newCalculation);
-  calculator.calculate(newCalculation);
-  console.log('solution', newCalculation);
-  res.sendStatus(200);
+app.get('/calculate', function (req, res) {
+  console.log('in GET');
+  res.send(calculator.calculationHistory);
 });
 
 app.listen(PORT, function () {
