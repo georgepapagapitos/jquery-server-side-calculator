@@ -1,9 +1,13 @@
+// Define an empty array that will hold all of the calculations
 let calculationHistory = [];
 
+// Function that performs a mathematical operation
 function calculate(equationObject) {
+  // Defines inputs based on given object (should be req.body)
   let num1 = Number(equationObject.firstNumber);
   let operation = equationObject.operation;
   let num2 = Number(equationObject.secondNumber);
+  // Switch statement to determine operation based on user input
   switch (operation) {
     case '+':
       equationObject.solution = num1 + num2;
@@ -18,11 +22,11 @@ function calculate(equationObject) {
       equationObject.solution = num1 / num2;
       break;
     default:
-      throw new Error('select an operation');
+      throw new Error(alert('select an operation'));
   }
   calculationHistory.unshift(equationObject);
-  console.log('equation object', equationObject);
-  console.log('calc history array', calculationHistory);
+  console.log('calculation added to array:', equationObject);
+  console.log('calculation history:', calculationHistory);
   return equationObject;
 }
 

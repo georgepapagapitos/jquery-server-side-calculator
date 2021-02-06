@@ -9,7 +9,6 @@ app.use(express.static('server/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.post('/calculate', function (req, res) {
   console.log('req.body', req.body);
   calculator.calculate(req.body);
@@ -24,3 +23,7 @@ app.get('/calculate', function (req, res) {
 app.listen(PORT, function () {
   console.log('Server running on port 5000');
 });
+
+// app.delete('/calculate', (req, res) => {
+//   res.send('DELETE Request Called');
+// });

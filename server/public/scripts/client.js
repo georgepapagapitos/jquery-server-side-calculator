@@ -1,12 +1,12 @@
 $(document).ready(onReady);
 
 let operator = '';
-let calculationToSolve = {};
 
 function onReady() {
   renderMath();
   $(document).on('submit', '#input-form', onSubmit);
   $(document).on('click', '.operation-button', getOperation);
+  $(document).on('click', '#clear-button', clearButton);
 }
 // Function that determines the type of operation based on the button clicked
 function getOperation(event) {
@@ -31,20 +31,20 @@ function onSubmit(event) {
     secondNumber = 0;
   }
   // Create an object with the data from the input form
-  calculationToSolve = {
+  let calculationToSolve = {
     firstNumber: firstNumber,
     operation: operator,
     secondNumber: secondNumber,
     solution: '',
   };
-
+  // Send the calculation object to the server
   $.ajax({
     url: '/calculate',
     method: 'POST',
     data: calculationToSolve,
   })
     .then(function (response) {
-      console.log('in POST response', response);
+      // Call renderMath() function
       renderMath();
     })
     .catch(function (error) {
@@ -52,6 +52,7 @@ function onSubmit(event) {
     });
 }
 
+// Function that grabs data from the server and appends it to the DOM
 function renderMath() {
   $.ajax({
     url: '/calculate',
@@ -64,8 +65,12 @@ function renderMath() {
       );
       $('#solution').text(response[0].solution);
     }
-    $('#first-number').val('');
-    $('#second-number').val('');
-    operator = '';
   });
+}
+
+// Function that clears inputs when the 'C' button is pressed
+function clearButton() {
+  $('#first-number').val('');
+  $('#second-number').val('');
+  operator = '';
 }
