@@ -10,12 +10,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/calculator', function (req, res) {
-  res.send(calculator.calculate(newCalculation));
+  console.log('in GET request');
+  res.send(calculator.calculationHistory);
 });
 
 app.post('/calculator', function (req, res) {
   let newCalculation = req.body.calculation_to_solve;
-  calculator.calculationHistory.push(newCalculation);
+  console.log('req.body.calculation_to_solve', newCalculation);
+  calculator.calculate(newCalculation);
+  console.log('solution', newCalculation);
   res.sendStatus(200);
 });
 

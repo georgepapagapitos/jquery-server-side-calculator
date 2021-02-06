@@ -1,25 +1,27 @@
 let calculationHistory = [];
 
 function calculate(calculationToSolve) {
-  let solution = { solution: 0 };
-  let num1 = calculationToSolve.firstNumber;
-  let num2 = calculationToSolve.secondNumber;
-  switch (calculationToSolve.operator) {
-    case 'add':
+  let solution = 0;
+  let num1 = Number(calculationToSolve.firstNumber);
+  let num2 = Number(calculationToSolve.secondNumber);
+  switch (calculationToSolve.operation) {
+    case '+':
       solution = num1 + num2;
       break;
-    case 'subtract':
+    case '-':
       solution = num1 - num2;
       break;
-    case 'multiply':
+    case '*':
       solution = num1 * num2;
       break;
-    case 'divide':
+    case '/':
       solution = num1 / num2;
       break;
     default:
-      solution = 0;
+      throw new Error('select an operation');
   }
+  calculationToSolve.solution = solution;
+  calculationHistory.unshift(calculationToSolve);
   return solution;
 }
 
