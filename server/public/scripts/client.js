@@ -7,6 +7,7 @@ function onReady() {
   $(document).on('submit', '#calculator', onSubmit);
   $(document).on('click', '.operation', getOperation);
   $(document).on('click', '#clear-button', clearButton);
+  $(document).on('click', '.button', displayMath);
 }
 // Function that determines the type of operation based on the button clicked
 function getOperation(event) {
@@ -74,8 +75,4 @@ function clearButton() {
   $('#second-number').val('');
   operator = '';
   $('#solution').text('');
-}
-
-function displayMath(event) {
-  console.log($(this).data());
 }
