@@ -4,9 +4,9 @@ let calculationHistory = [];
 // Function that performs a mathematical operation
 function calculate(equationObject) {
   // Defines inputs based on given object (should be req.body)
-  let num1 = Number(equationObject.firstNumber);
+  let num1 = equationObject.firstNumber;
   let operation = equationObject.operation;
-  let num2 = Number(equationObject.secondNumber);
+  let num2 = equationObject.secondNumber;
   // Switch statement to determine operation based on user input
   switch (operation) {
     case '+':

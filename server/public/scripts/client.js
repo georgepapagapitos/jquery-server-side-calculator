@@ -1,34 +1,17 @@
 $(document).ready(onReady);
 
 let operator = '';
+let firstNumber = '';
+let secondNumber = '';
 
 function onReady() {
   renderMath();
   $(document).on('click', '#submit-button', onSubmit);
   $(document).on('click', '.button', handleClick);
 }
-// Function that determines the type of operation based on the button clicked
-function getOperation(event) {
-  event.preventDefault();
-  // Sets the operator to whichever button is last pressed
-  operator = $(this).data('operation');
-  console.log('operator', operator);
-  return operator;
-}
 
 // Function that creates an calculation object
 function onSubmit() {
-  console.log($(this));
-  // Grab data from form inputs
-  let firstNumber = $('#first-number').val();
-  let secondNumber = $('#second-number').val();
-  // If no number is inputted, default to zero
-  if (firstNumber === '') {
-    firstNumber = 0;
-  }
-  if (secondNumber === '') {
-    secondNumber = 0;
-  }
   // Create an object with the data from the input form
   let calculationToSolve = {
     firstNumber: firstNumber,
@@ -36,6 +19,7 @@ function onSubmit() {
     secondNumber: secondNumber,
     solution: '',
   };
+
   // Send the calculation object to the server
   $.ajax({
     url: '/calculate',
@@ -43,7 +27,6 @@ function onSubmit() {
     data: calculationToSolve,
   })
     .then(function (response) {
-      // Call renderMath() function
       renderMath();
     })
     .catch(function (error) {
@@ -66,19 +49,35 @@ function renderMath() {
   });
 }
 
-// Function that clears inputs when the 'C' button is pressed
-function clearButton() {
-  $('#first-number').val('');
-  $('#second-number').val('');
-  operator = '';
-  $('#solution').text('');
-}
-
 function handleClick() {
   let buttonClicked = $(this).html();
-  if (buttonClicked >= 0 || buttonClicked <= 9) {
-    console.log('number', buttonClicked);
+
+  if (buttonClicked >= '0' && buttonClicked <= '9') {
+    if (firstNumber === '') {
+      firstNumber = Number(buttonClicked);
+      console.log('firstNumber', firstNumber);
+    } else {
+      secondNumber = Number(buttonClicked);
+      console.log('secondNumber', secondNumber);
+    }
   } else {
-    console.log('operator', buttonClicked);
+    operator = buttonClicked;
+    console.log('operator', operator);
   }
 }
+
+// Function that determines the type of operation based on the button clicked
+// function getOperation() {
+//   // Sets the operator to whichever button is last pressed
+//   operator = $(this).data('operation');
+//   console.log('operator', operator);
+//   return operator;
+// }
+
+// Function that clears inputs when the 'C' button is pressed
+// function clearDisplay() {
+//   $('#first-number').val('');
+//   $('#second-number').val('');
+//   operator = '';
+//   $('#solution').text('');
+// }
