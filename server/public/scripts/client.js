@@ -1,24 +1,20 @@
 $(document).ready(onReady);
 
-let operator = '';
-let firstNumber = '';
-let secondNumber = '';
+let calculationToSolve = {};
 
 function onReady() {
   renderMath();
   $(document).on('click', '#submit-button', onSubmit);
   $(document).on('click', '.button', handleClick);
+  $(document).on('click', '#clear-button', clearDisplay);
 }
 
 // Function that creates an calculation object
 function onSubmit() {
   // Create an object with the data from the input form
-  let calculationToSolve = {
-    firstNumber: firstNumber,
-    operation: operator,
-    secondNumber: secondNumber,
-    solution: '',
-  };
+  let equation = $('#display-field').text();
+  let calculationToSolve = equation.split('');
+  console.log(calculationToSolve);
 
   // Send the calculation object to the server
   $.ajax({
@@ -27,7 +23,7 @@ function onSubmit() {
     data: calculationToSolve,
   })
     .then(function (response) {
-      renderMath();
+      renderMath(response);
     })
     .catch(function (error) {
       console.log('error', error);
@@ -50,20 +46,8 @@ function renderMath() {
 }
 
 function handleClick() {
-  let buttonClicked = $(this).html();
-
-  if (buttonClicked >= '0' && buttonClicked <= '9') {
-    if (firstNumber === '') {
-      firstNumber = Number(buttonClicked);
-      console.log('firstNumber', firstNumber);
-    } else {
-      secondNumber = Number(buttonClicked);
-      console.log('secondNumber', secondNumber);
-    }
-  } else {
-    operator = buttonClicked;
-    console.log('operator', operator);
-  }
+  let buttonClicked = $(this).data('button');
+  console.log(buttonClicked);
 }
 
 // Function that determines the type of operation based on the button clicked
@@ -75,9 +59,6 @@ function handleClick() {
 // }
 
 // Function that clears inputs when the 'C' button is pressed
-// function clearDisplay() {
-//   $('#first-number').val('');
-//   $('#second-number').val('');
-//   operator = '';
-//   $('#solution').text('');
-// }
+function clearDisplay() {
+  $('#display-field').text('0');
+}
