@@ -20,6 +20,7 @@ function getOperation(event) {
 // Function that creates an calculation object
 function onSubmit(event) {
   event.preventDefault();
+
   // Grab data from form inputs
   let firstNumber = $('#first-number').val();
   let secondNumber = $('#second-number').val();
@@ -57,13 +58,12 @@ function renderMath() {
   $.ajax({
     url: '/calculate',
     method: 'GET',
-  }).then(function (response) {
+  }).then(function (calcHistory) {
     $('#history-list').empty();
-    for (let i = 0; i < response.length; i++) {
+    for (let i = 0; i < calcHistory.length; i++) {
       $('#history-list').append(
-        `<li>${response[i].firstNumber} ${response[i].operation} ${response[i].secondNumber} = ${response[i].solution}</li>`
+        `<li>${calcHistory[i].firstNumber} ${calcHistory[i].operation} ${calcHistory[i].secondNumber} = ${calcHistory[i].solution}</li>`
       );
-      $('#solution').text(response[0].solution);
     }
   });
 }
@@ -73,4 +73,5 @@ function clearButton() {
   $('#first-number').val('');
   $('#second-number').val('');
   operator = '';
+  $('#solution').text('');
 }

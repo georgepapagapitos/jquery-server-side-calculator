@@ -1,5 +1,7 @@
+// Require express & body-parser
 const express = require('express');
 const bodyParser = require('body-parser');
+// Require calculator module
 const calculator = require('./modules/calculator');
 
 const app = express();
@@ -10,20 +12,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/calculate', function (req, res) {
-  console.log('req.body', req.body);
+  console.log('POST req.body:', req.body);
   calculator.calculate(req.body);
   res.sendStatus(200);
 });
 
 app.get('/calculate', function (req, res) {
-  console.log('in GET');
+  console.log('GET from /calculate');
   res.send(calculator.calculationHistory);
 });
 
 app.listen(PORT, function () {
   console.log('Server running on port 5000');
 });
-
-// app.delete('/calculate', (req, res) => {
-//   res.send('DELETE Request Called');
-// });
