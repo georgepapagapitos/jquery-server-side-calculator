@@ -4,10 +4,8 @@ let operator = '';
 
 function onReady() {
   renderMath();
-  $(document).on('submit', '#calculator', onSubmit);
-  $(document).on('click', '.operation', getOperation);
-  $(document).on('click', '#clear-button', clearButton);
-  $(document).on('click', '.button', displayMath);
+  $(document).on('click', '#submit-button', onSubmit);
+  $(document).on('click', '.button', handleClick);
 }
 // Function that determines the type of operation based on the button clicked
 function getOperation(event) {
@@ -19,9 +17,8 @@ function getOperation(event) {
 }
 
 // Function that creates an calculation object
-function onSubmit(event) {
-  event.preventDefault();
-
+function onSubmit() {
+  console.log($(this));
   // Grab data from form inputs
   let firstNumber = $('#first-number').val();
   let secondNumber = $('#second-number').val();
@@ -75,4 +72,13 @@ function clearButton() {
   $('#second-number').val('');
   operator = '';
   $('#solution').text('');
+}
+
+function handleClick() {
+  let buttonClicked = $(this).html();
+  if (buttonClicked >= 0 || buttonClicked <= 9) {
+    console.log('number', buttonClicked);
+  } else {
+    console.log('operator', buttonClicked);
+  }
 }

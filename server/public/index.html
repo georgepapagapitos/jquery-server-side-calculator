@@ -10,40 +10,41 @@
     <script src="./scripts/client.js"></script>
   </head>
   <body>
-    <div id="header">
-      <h1>Server Side Calculator</h1>
+    <header><h1>Weekend Challenge #2</h1></header>
+    <div class="title">
+      <h2>Server Side Calculator</h2>
     </div>
 
     <div class="container">
-      <form id="calculator">
+      <div id="display">
         <input type="text" id="input-field" />
-        <input type="button" value="C" id="clear-button" />
-        <div id="button-field">
-          <div id="top-row">
-            <button type="button" class="number button" data-number="7">7</button>
-            <button type="button" class="number button" data-number="8">8</button>
-            <button type="button" class="number button" data-number="9">9</button>
-            <button type="button" class="operation button" data-operation="+">+</button>
+        <button class="button" id="clear-button">C</button>
+      </div>
+        <div class="button-field">
+          <div class="row">
+            <button class="button">7</button>
+            <button class="button">8</button>
+            <button class="button">9</button>
+            <button class="button" data-operation="+">+</button>
           </div>
-          <div id="middle-row">
-            <button type="button" class="number button" data-number="4">4</button>
-            <button type="button" class="number button" data-number="5">5</button>
-            <button type="button" class="number button" data-number="6">6</button>
-            <button type="button" class="operation button" data-operation="-">-</button>
+          <div class="row">
+            <button class="button">4</button>
+            <button class="button">5</button>
+            <button class="button">6</button>
+            <button class="button" data-operation="-">-</button>
           </div>
-          <div id="bottom-row">
-            <button type="button" class="number button" data-number="1">1</button>
-            <button type="button" class="number button" data-number="2">2</button>
-            <button type="button" class="number button" data-number="3">3</button>
-            <button type="button" class="operation button" data-operation="*">*</button>
+          <div class="row">
+            <button class="button">1</button>
+            <button class="button">2</button>
+            <button class="button">3</button>
+            <button class="button" data-operation="*">*</button>
           </div>
-          <div id="zero-row">
-            <button type="button" class="number button" data-number="0">0</button>
-            <button type="button" class="button" data-opeartion=".">.</button>
-            <input type="submit" value="=" id="submit-button" />
-            <button type="button" class="operation button" data-operation="/">/</button>
+          <div class="row">
+            <button class="button">0</button>
+            <button class="button">.</button>
+            <button class="button" id="submit-button">=</button>
+            <button class="button" data-operation="/">/</button>
           </div>
-        </form>
     </div>
     <div class="container">
       <h2 id="solution-text"></h2>
