@@ -22,7 +22,7 @@ function calculate(equationObject) {
       equationObject.solution = num1 / num2;
       break;
     default:
-      throw new Error(alert('select an operation'));
+      console.log('no operation selected');
   }
   calculationHistory.unshift(equationObject);
   console.log('calculation added to array:', equationObject);
