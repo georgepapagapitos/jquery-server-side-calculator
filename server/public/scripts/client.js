@@ -45,6 +45,7 @@ function renderMath() {
   });
 }
 
+// Function to determine which button was clicked
 function handleClick() {
   let buttonClicked = $(this).data('button');
   console.log(buttonClicked);
